@@ -68,18 +68,29 @@ function send_mail(event) {
         data: data,
         success: function(response) {
             // Handle successful submission
-            jQuery('#suce_message').show();
+            console.log("Message Sent Successfully");  // Log success to the console
+            console.log("Response from Formspree:", response);  // Log Formspree response
+           
+
+            // Show success message on the page
+            jQuery('#suce_message').show();  // Show success message
             jQuery('#suce_message').text("Message Sent Successfully");  // Success message text
             jQuery("#contact-form")[0].reset();  // Reset form fields
 
-            // Delay page refresh for 2 seconds after success message
+            // Auto-refresh the page after 0.3 seconds
             setTimeout(function() {
-                location.reload();  // Refresh the page after 2 seconds
-            }, 2000);  // 2 seconds delay before page refresh
+                location.reload();  // Refresh the page after 0.3 seconds
+            }, 300);  // 0.3 seconds delay before page refresh
         },
         error: function(xhr, status, error) {
-            // No error message will be shown if AJAX fails
-            console.error("Error details: ", xhr.responseText);  // Log error in console for debugging
+            // Log detailed error to the console
+            console.error("AJAX Error:", xhr, status, error);
+
+            // Show error message on the page
+            jQuery('#err_message').hide();
+            jQuery('#err_message').text("Something went wrong. Please try again later.");  // Error message
+            // Optionally reset the form after an error
+            jQuery("#contact-form")[0].reset(); 
         }
     });
 }
